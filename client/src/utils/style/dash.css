@@ -1,0 +1,28 @@
+h1.whiteTxt {
+    font-size: 5em;
+    color: white;
+    text-align: center;
+}
+
+.formName, .formName form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.formName form input {
+    height: 30px;
+    padding: 10px;
+    margin: 0 10px;
+}
+
+.modifBtn {
+    font-size: 3em;
+    display: block;
+}
+
+.editBtn {
+    font-size: 3em;
+    padding: 10px;
+}
