@@ -1,0 +1,218 @@
+swagger: "2.0"
+info:
+  title: Argent Bank Transaction API
+  description: user's transaction API models
+  version: 2.0.0
+  termsOfService: http://swagger.io/terms/
+host: localhost:3001
+basePath: /api/p2
+schemes:
+  - http
+paths:
+  /user/transactions:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction module
+      summary: Transactions In The Current Month
+      description: Current Month Transactions fetcher
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: User transactions returned successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/allTransactionsResponse"
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: transaction's ID
+                  date:
+                    type: string
+                    description: transaction's date
+                  amount:
+                    type: string
+                    description: transaction's amount
+        "400":
+          description: Invalid
+        "401":
+          description: Unauthorized
+        "404":
+          description: Transaction not found
+        "500":
+          description: Internal Server Error
+  /user/transaction:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction module
+      summary: Transaction Add API
+      description: add a new transaction
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Data neccessary to create a new transaction
+          required: true
+          schema:
+            $ref: "#/definitions/addTransaction"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Transaction added successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/ApiTransactionResponse"
+        "400":
+          description: Invalid data
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+  /user/transaction/{idTr}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction module
+      summary: Transaction Show API
+      description: API for showing a transaction
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+        - in: path
+          name: idTr
+          description: Id of the transaction
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Transaction retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/ApiTransactionResponse"
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: transaction's ID
+                  date:
+                    type: string
+                    description: transaction's date
+                  amount:
+                    type: string
+                    description: transaction's amount
+        "400":
+          description: Invalid data
+        "401":
+          description: Unauthorized
+        "404":
+          description: Transaction not found
+        "500":
+          description: Internal Server Error
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction module
+      summary: Edit transaction
+      description: to Update a transaction
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+        - in: path
+          name: idTr
+          description: Id of the transaction that must me modified
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Modif data transaction
+          required: true
+          schema:
+            $ref: "#/definitions/editTransaction"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Transaction edited successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/ApiTransactionResponse"
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: transaction's ID
+                  date:
+                    type: string
+                    description: transaction's date
+                  amount:
+                    type: string
+                    description: transaction's amount
+        "400":
+          description: Invalid data
+        "401":
+          description: Unauthorized
+        "404":
+          description: Transaction not found
+        "500":
+          description: Internal Server Error
+    delete:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction module
+      summary: Delete Transaction
+      description: To delete a transaction
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+        - in: path
+          name: idTr
+          description: Id of the transaction that must be deleted
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Transaction deleted successfully
+        "400":
+          description: Invalid data
+        "401":
+          description: Unauthorized
+        "404":
+          description: Transaction not found
+        "500":
+          description: Internal Server Error
